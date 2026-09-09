@@ -1,0 +1,60 @@
+{
+  "environment": "lab-congested",
+  "channels": {
+    "1": {
+      "avg_power_dbm": -45,
+      "client_count": 6,
+      "utilization_pct": 63
+    },
+    "2": {
+      "avg_power_dbm": -40,
+      "client_count": 7,
+      "utilization_pct": 66
+    },
+    "3": {
+      "avg_power_dbm": -35,
+      "client_count": 8,
+      "utilization_pct": 69
+    },
+    "4": {
+      "avg_power_dbm": -50,
+      "client_count": 9,
+      "utilization_pct": 72
+    },
+    "5": {
+      "avg_power_dbm": -45,
+      "client_count": 10,
+      "utilization_pct": 75
+    },
+    "6": {
+      "avg_power_dbm": -40,
+      "client_count": 11,
+      "utilization_pct": 78
+    },
+    "7": {
+      "avg_power_dbm": -35,
+      "client_count": 12,
+      "utilization_pct": 81
+    },
+    "8": {
+      "avg_power_dbm": -50,
+      "client_count": 13,
+      "utilization_pct": 84
+    },
+    "9": {
+      "avg_power_dbm": -45,
+      "client_count": 14,
+      "utilization_pct": 87
+    },
+    "10": {
+      "avg_power_dbm": -40,
+      "client_count": 15,
+      "utilization_pct": 90
+    },
+    "11": {
+      "avg_power_dbm": -35,
+      "client_count": 16,
+      "utilization_pct": 93
+    }
+  }
+}

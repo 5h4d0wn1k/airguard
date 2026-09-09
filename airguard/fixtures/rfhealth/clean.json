@@ -1,0 +1,60 @@
+{
+  "environment": "lab-clean",
+  "channels": {
+    "1": {
+      "avg_power_dbm": -81,
+      "client_count": 3,
+      "utilization_pct": 13
+    },
+    "2": {
+      "avg_power_dbm": -82,
+      "client_count": 2,
+      "utilization_pct": 16
+    },
+    "3": {
+      "avg_power_dbm": -80,
+      "client_count": 3,
+      "utilization_pct": 19
+    },
+    "4": {
+      "avg_power_dbm": -81,
+      "client_count": 2,
+      "utilization_pct": 22
+    },
+    "5": {
+      "avg_power_dbm": -82,
+      "client_count": 3,
+      "utilization_pct": 10
+    },
+    "6": {
+      "avg_power_dbm": -80,
+      "client_count": 2,
+      "utilization_pct": 13
+    },
+    "7": {
+      "avg_power_dbm": -81,
+      "client_count": 3,
+      "utilization_pct": 16
+    },
+    "8": {
+      "avg_power_dbm": -82,
+      "client_count": 2,
+      "utilization_pct": 19
+    },
+    "9": {
+      "avg_power_dbm": -80,
+      "client_count": 3,
+      "utilization_pct": 22
+    },
+    "10": {
+      "avg_power_dbm": -81,
+      "client_count": 2,
+      "utilization_pct": 10
+    },
+    "11": {
+      "avg_power_dbm": -82,
+      "client_count": 3,
+      "utilization_pct": 13
+    }
+  }
+}

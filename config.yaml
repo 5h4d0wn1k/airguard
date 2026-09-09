@@ -1,0 +1,29 @@
+airguard:
+  version: "1.0.0"
+  mode: offline
+
+wids:
+  deauth_flood_threshold: 5
+  deauth_flood_window_sec: 10.0
+  evil_twin_min_beacons: 2
+  allowlist_ssids:
+    - "lab-corp-secure"
+    - "lab-internal"
+  allowlist_bssids: []
+
+beacon_anomaly:
+  homoglyph_ssid_flag: true
+  zero_info_flag: true
+  channel_hop_threshold: 3
+
+spectrum:
+  jammer_power_threshold_dbm: -30
+  noise_floor_dbm: -90
+
+survey:
+  wpa3_indicators: ["SAE", "FT-SAE"]
+  weak_score_threshold: 50
+
+rfhealth:
+  interference_threshold_dbm: -40
+  contention_min_clients: 3
