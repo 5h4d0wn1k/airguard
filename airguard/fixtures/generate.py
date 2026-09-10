@@ -82,17 +82,18 @@ def _tag_rsn(version: int, group_cipher: bytes, pairwise: list[bytes],
     return struct.pack("BB", 48, len(data)) + data
 
 
-# OUI+type selectors
-WPA2_CCMP = b"\x00\x0f\xac\x02"
-WPA2_TKIP = b"\x00\x0f\xac\x04"
+# OUI+type selectors (cipher space)
+WPA2_CCMP = b"\x00\x0f\xac\x04"
+WPA2_TKIP = b"\x00\x0f\xac\x02"
+GCMP_128 = b"\x00\x0f\xac\x06"
+
+# OUI+type selectors (AKM space — distinct from cipher types)
 WPA2_PSK = b"\x00\x0f\xac\x02"
 WPA2_EAP = b"\x00\x0f\xac\x01"
 WPA3_SAE = b"\x00\x0f\xac\x08"
-WPA3_FT_SAE = b"\x00\x0f\xac\x08"  # AKM 8 = FT-SAE
-WPA3_SAE_AKM = b"\x00\x0f\xac\x09"  # AKM 9 = SAE
-WPA3_OWE = b"\x00\x0f\xac\x11"
-WPA3_OWE_TRANS = b"\x00\x0f\xac\x12"
-GCMP_128 = b"\x00\x0f\xac\x06"
+WPA3_FT_SAE = b"\x00\x0f\xac\x09"
+WPA3_OWE = b"\x00\x0f\xac\x13"
+WPA3_OWE_TRANS = b"\x00\x0f\xac\x14"
 
 
 def _tag_empty_ssid() -> bytes:
@@ -224,6 +225,17 @@ def gen_deauth_flood():
     _write(FIXTURES / "deauth_flood" / "attack.bin", _pack_frames(*frames))
 
 
+def gen_deauth_flood2():
+    """Second deauth flood against a different BSSID (for demo: 2 floods)."""
+    frames = []
+    for i in range(12):
+        frames.append(build_deauth(
+            src="cc:dd:ee:ff:00:11", dst="00:11:22:33:44:66",
+            bssid="00:11:22:33:44:66", reason=8, seq=i,
+        ))
+    _write(FIXTURES / "deauth_flood" / "attack2.bin", _pack_frames(*frames))
+
+
 def gen_evil_twin():
     """Two beacons with same SSID, different BSSIDs."""
     frames = [
@@ -283,12 +295,12 @@ def gen_wpa3_survey():
         # WPA3-SAE only (strong)
         build_beacon(src="00:11:22:33:44:60", bssid="00:11:22:33:44:60",
                      ssid="lab-wpa3-only", channel=1, seq=1,
-                     rsn_data=_tag_rsn(1, GCMP_128, [GCMP_128], [WPA3_SAE_AKM])),
+                     rsn_data=_tag_rsn(1, GCMP_128, [GCMP_128], [WPA3_SAE])),
         # WPA3-SAE transition mode (WPA2+WPA3)
         build_beacon(src="00:11:22:33:44:61", bssid="00:11:22:33:44:61",
                      ssid="lab-wpa3-transition", channel=6, seq=2,
                      rsn_data=_tag_rsn(1, WPA2_CCMP, [WPA2_CCMP],
-                                        [WPA2_PSK, WPA3_SAE_AKM])),
+                                        [WPA2_PSK, WPA3_SAE])),
         # WPA2 only (moderate)
         build_beacon(src="00:11:22:33:44:62", bssid="00:11:22:33:44:62",
                      ssid="lab-wpa2-only", channel=11, seq=3,
@@ -379,6 +391,26 @@ def gen_rfhealth_congested():
            json.dumps(data, indent=2).encode())
 
 
+def gen_wpa3_weak_survey():
+    """Weak environment: 2 open + TKIP + WPA2-PSK + OWE → posture 38.0."""
+    frames = [
+        build_beacon(src="00:11:22:33:44:70", bssid="00:11:22:33:44:70",
+                     ssid="lab-legacy-open-1", channel=1, seq=1),
+        build_beacon(src="00:11:22:33:44:71", bssid="00:11:22:33:44:71",
+                     ssid="lab-legacy-open-2", channel=6, seq=2),
+        build_beacon(src="00:11:22:33:44:72", bssid="00:11:22:33:44:72",
+                     ssid="lab-legacy-tkip", channel=11, seq=3,
+                     rsn_data=_tag_rsn(1, WPA2_TKIP, [WPA2_TKIP], [WPA2_PSK])),
+        build_beacon(src="00:11:22:33:44:73", bssid="00:11:22:33:44:73",
+                     ssid="lab-legacy-psk", channel=36, seq=4,
+                     rsn_data=_tag_rsn(1, WPA2_CCMP, [WPA2_CCMP], [WPA2_PSK])),
+        build_beacon(src="00:11:22:33:44:74", bssid="00:11:22:33:44:74",
+                     ssid="lab-hybrid-owe", channel=44, seq=5,
+                     rsn_data=_tag_rsn(1, GCMP_128, [GCMP_128], [WPA3_OWE])),
+    ]
+    _write(FIXTURES / "wpa3_survey" / "weak.bin", _pack_frames(*frames))
+
+
 def gen_client_misassoc():
     """Client probe-request leakage + sweeping."""
     frames = []
@@ -397,11 +429,13 @@ def gen_all():
     gen_clean_beacon()
     gen_clean_set()
     gen_deauth_flood()
+    gen_deauth_flood2()
     gen_evil_twin()
     gen_evil_twin_bssid_conflict()
     gen_rogue_ap()
     gen_beacon_anomaly()
     gen_wpa3_survey()
+    gen_wpa3_weak_survey()
     gen_clean_spectrum()
     gen_jammer_spectrum()
     gen_rfhealth_clean()

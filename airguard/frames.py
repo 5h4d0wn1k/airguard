@@ -154,25 +154,28 @@ def _oui_cipher(b: bytes) -> str:
     oui = b[:3]
     ctype = b[3]
     if oui == b"\x00\x0f\xac":
-        names = {1: "TKIP", 2: "CCMP", 3: "WRAP", 4: "GCMP-128", 6: "GCMP-256"}
+        names = {
+            1: "WEP-40", 2: "TKIP", 4: "CCMP", 5: "WEP-104",
+            6: "GCMP-128", 8: "GCMP-256",
+        }
         return names.get(ctype, f"00-0f-ac-{ctype}")
     return f"{oui[0]:02x}:{oui[1]:02x}:{oui[2]:02x}-{ctype}"
 
 
 def _oui_akm(b: bytes) -> str:
-    """Decode OUI+type AKM suite selector."""
+    """Decode OUI+type AKM suite selector (IEEE 802.11-2016)."""
     if len(b) < 4:
         return "unknown"
     oui = b[:3]
     atype = b[3]
     if oui == b"\x00\x0f\xac":
         names = {
-            1: "WPA2-EAP", 2: "WPA2-PSK", 3: "FT-EAP",
-            4: "FT-PSK", 5: "WPA2-EAP-SHA256", 6: "WPA2-PSK-SHA256",
-            8: "FT-SAE", 9: "SAE", 10: "FT-SAE-FT",
-            11: "OWE", 12: "OWE-TRANSITION",
-            17: "OWE", 18: "OWE-TRANSITION",
-            18: "WPA3-EAP", 19: "WPA3-PSK",
+            1: "WPA2-EAP", 2: "WPA2-PSK", 3: "FT-EAP", 4: "FT-PSK",
+            5: "WPA2-EAP-SHA256", 6: "WPA2-PSK-SHA256", 7: "TDLS",
+            8: "SAE", 9: "FT-SAE", 10: "SAE-SHA256", 11: "FT-SAE-SHA256",
+            13: "WPA2-EAP-SHA384", 14: "WPA2-PSK-SHA384",
+            15: "FILS-SHA256", 16: "FILS-SHA384",
+            19: "OWE", 20: "OWE-TRANSITION",
         }
         return names.get(atype, f"00-0f-ac-{atype}")
     return f"{oui[0]:02x}:{oui[1]:02x}:{oui[2]:02x}-{atype}"
