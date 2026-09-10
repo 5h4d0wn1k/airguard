@@ -1,4 +1,5 @@
 # airguard
+![tests](https://github.com/5h4d0wn1k/airguard/actions/workflows/ci.yml/badge.svg) ![MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
 Wireless defense & monitoring suite — WIDS sensor, deauth/evil-twin/rogue-AP
 detection, beacon anomaly scan, spectrum-analysis simulation, WPA3 survey, RF
