@@ -29,3 +29,7 @@ dev = ["pyyaml"]
 
 [tool.setuptools.packages.find]
 include = ["airguard*"]
+
+[tool.setuptools.package-data]
+airguard = ["fixtures/**/*.bin", "fixtures/**/*.json"]
+airguard.fixtures = ["**/*.bin", "**/*.json"]
