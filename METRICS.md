@@ -6,9 +6,9 @@ Measured on a fresh `airguard` 1.0.0 build, offline (no live RF).
 
 | Metric | Value |
 | --- | --- |
-| Unit tests (`python -m unittest discover -s tests`) | **104** passing, 0 failures |
+| Unit tests (`python -m unittest discover -s tests`) | **107** passing, 0 failures |
 | Test modules | 8 (frames, wids, survey, spectrum, rfhealth, report, cli, config) |
-| Suite wall time | ~5.4 s |
+| Suite wall time | ~10 s |
 
 ## Demo proof (`airguard --demo`, exit 0)
 
