@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "airguard"
@@ -16,7 +16,6 @@ keywords = ["wireless", "wids", "802.11", "security", "monitoring"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Information Technology",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Topic :: Security",
 ]
@@ -32,4 +31,3 @@ include = ["airguard*"]
 
 [tool.setuptools.package-data]
 airguard = ["fixtures/**/*.bin", "fixtures/**/*.json"]
-airguard.fixtures = ["**/*.bin", "**/*.json"]
