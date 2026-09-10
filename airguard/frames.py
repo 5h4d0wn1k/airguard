@@ -171,6 +171,7 @@ def _oui_akm(b: bytes) -> str:
             4: "FT-PSK", 5: "WPA2-EAP-SHA256", 6: "WPA2-PSK-SHA256",
             8: "FT-SAE", 9: "SAE", 10: "FT-SAE-FT",
             11: "OWE", 12: "OWE-TRANSITION",
+            17: "OWE", 18: "OWE-TRANSITION",
             18: "WPA3-EAP", 19: "WPA3-PSK",
         }
         return names.get(atype, f"00-0f-ac-{atype}")

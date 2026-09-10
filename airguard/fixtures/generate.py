@@ -90,8 +90,8 @@ WPA2_EAP = b"\x00\x0f\xac\x01"
 WPA3_SAE = b"\x00\x0f\xac\x08"
 WPA3_FT_SAE = b"\x00\x0f\xac\x08"  # AKM 8 = FT-SAE
 WPA3_SAE_AKM = b"\x00\x0f\xac\x09"  # AKM 9 = SAE
-WPA3_OWE = b"\x00\x0f\xac\x0c"
-WPA3_OWE_TRANS = b"\x00\x0f\xac\x0c"
+WPA3_OWE = b"\x00\x0f\xac\x11"
+WPA3_OWE_TRANS = b"\x00\x0f\xac\x12"
 GCMP_128 = b"\x00\x0f\xac\x06"
 
 
